@@ -21,10 +21,20 @@
         </li>
         <li>
           <label for="category">Category:</label>
-          <select id="category" class="inputFields" name="category">
-            {{#each categoryOptions}}
-              <option value="{{value}}" {{selected}}> {{title}} </option>
-            {{/each}}
+          <select
+            id="category"
+            class="inputFields"
+            name="category"
+            value="{{movie.category}}"
+          >
+
+            <option value="">Select Category</option>
+            <option value="tv-show">TV Show</option>
+            <option value="animation">Animation</option>
+            <option value="movie">Movie</option>
+            <option value="documentary">Documentary</option>
+            <option value="short-film">Short Film</option>
+
           </select>
         </li>
         <li>
@@ -44,7 +54,7 @@
             class="inputFields"
             id="director"
             name="director"
-            {{movie.director}}
+            value="{{movie.director}}"
           />
         </li>
         <li>
@@ -54,7 +64,7 @@
             class="inputFields"
             id="year"
             name="year"
-            {{movie.year}}
+            value="{{movie.year}}"
           />
         </li>
         <li>
@@ -83,8 +93,8 @@
             id="description"
             class="inputFields"
             name="description"
-            value="{{movie.description}}"
-          ></textarea>
+            value=""
+          >{{movie.description}}</textarea>
         </li>
 
         <li id="center-btn">

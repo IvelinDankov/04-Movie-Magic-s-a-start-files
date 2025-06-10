@@ -7,9 +7,8 @@ import { errorMessage } from "../utils/errorUtils.js";
 const movieController = express.Router();
 
 movieController.get("/create", authGuard, (req, res) => {
-  const categoryOptions = populateOptions(category);
-
-  res.render("movie/create", { categoryOptions });
+  const movieOptions = populateOptions();
+  res.render("movie/create", { movieOptions });
 });
 
 movieController.post("/create", authGuard, async (req, res) => {
@@ -23,8 +22,13 @@ movieController.post("/create", authGuard, async (req, res) => {
     // Redirect to home page
     res.redirect("/");
   } catch (err) {
+    const movieOptions = populateOptions(newMovie.category);
     const error = errorMessage(err);
-    res.render("movie/create", { error, movie: newMovie });
+    res.render("movie/create", {
+      error,
+      movie: newMovie,
+      movieOptions,
+    });
   }
 });
 

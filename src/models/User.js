@@ -14,8 +14,8 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, "Please provide a password!"],
-    validate: [/^[a-zA-Z0-9]+$/, "password should be "],
-    minLength: [10, "Min Length should be min 10 characters!"],
+    validate: [/^[a-zA-Z0-9]*$/, "password should be english word and Numbers"],
+    minLength: [5, "Min Length should be min 5 characters!"],
   },
 });
 

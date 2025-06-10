@@ -41,9 +41,12 @@ app.engine(
 
 // Connect database
 try {
-  await mongoose.connect(`mongodb://localhost:27017`, {
-    dbName: "magic-movies",
-  });
+  await mongoose.connect(
+    `mongodb+srv://velin430:3C7a318e@cluster0.wwahnm9.mongodb.net/`,
+    {
+      dbName: "magic-movies",
+    }
+  );
   console.log("Successfully Conect to DB!");
 } catch (err) {
   console.log("Cannot connect to DB!");
