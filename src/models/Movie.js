@@ -2,7 +2,7 @@ import { Schema, model, Types } from "mongoose";
 
 const maxYearAllowed = new Date().getFullYear() + 5;
 
-const validCharacterPattern = /^[a-zA-Z0-9]+$/;
+const validCharacterPattern = /^[a-zA-Z0-9 ]*$/;
 
 const movieSchema = new Schema({
   title: {

@@ -2,22 +2,30 @@ import express from "express";
 import movieService from "../services/movieService.js";
 import castService from "../services/castService.js";
 import { authGuard } from "../middlewares/authMiddleware.js";
+import { errorMessage } from "../utils/errorUtils.js";
 
 const movieController = express.Router();
 
 movieController.get("/create", authGuard, (req, res) => {
-  res.render("create");
+  const categoryOptions = populateOptions(category);
+
+  res.render("movie/create", { categoryOptions });
 });
 
 movieController.post("/create", authGuard, async (req, res) => {
   const newMovie = req.body;
   const userId = req.user.id;
 
-  // Save Movie
-  await movieService.create(userId, newMovie);
+  try {
+    // Save Movie
+    await movieService.create(userId, newMovie);
 
-  // Redirect to home page
-  res.redirect("/");
+    // Redirect to home page
+    res.redirect("/");
+  } catch (err) {
+    const error = errorMessage(err);
+    res.render("movie/create", { error, movie: newMovie });
+  }
 });
 
 movieController.get("/:movieId/details", async (req, res) => {
@@ -29,7 +37,7 @@ movieController.get("/:movieId/details", async (req, res) => {
 
   const userId = req.user?.id;
 
-  const isOwner = movie.owner == userId;
+  const isOwner = String(movie.owner) === userId;
 
   // Get movie cast
   // const casts = await movieService.getCasts(movieId)
