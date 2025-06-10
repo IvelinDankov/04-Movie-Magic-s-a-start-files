@@ -5,8 +5,11 @@ import { SECRET } from "../utils/config.js";
 
 export default {
   register(userData) {
-    const { email, password } = userData;
-    return User.create({ email, password });
+    const { email, password, rePass } = userData;
+    if (password !== rePass) {
+      throw new Error("Password mismatch!");
+    }
+    return User.create({ email, password, rePass });
   },
   async login(userData) {
     // do Something

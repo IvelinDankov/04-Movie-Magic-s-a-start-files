@@ -4,7 +4,11 @@ import { authGuard } from "../middlewares/authMiddleware.js";
 
 const userController = Router();
 
-userController.get("/register", (req, res) => {
+userController.get("/register", async (req, res) => {
+  const token = await userService.login(userData);
+
+  // take back from service token and attach cookie
+  res.cookie("auth", token);
   res.render("users/register");
 });
 userController.post("/register", async (req, res) => {
